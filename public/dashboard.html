@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Student Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gray-50">
+  <div class="min-h-screen flex">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-blue-700 text-white hidden md:block">
+      <div class="p-6">
+        <h2 class="text-xl font-semibold mb-6">Student Portal</h2>
+        <nav class="space-y-2 text-sm">
+          <a href="#" data-page="dashboard" class="block py-2 px-3 rounded hover:bg-blue-600">Dashboard</a>
+          <a href="#" data-page="courses" class="block py-2 px-3 rounded hover:bg-blue-600">Courses</a>
+          <a href="#" data-page="mycourses" class="block py-2 px-3 rounded hover:bg-blue-600">My Courses</a>
+          <a href="#" data-page="schedule" class="block py-2 px-3 rounded hover:bg-blue-600">Schedule</a>
+          <a href="#" data-page="grades" class="block py-2 px-3 rounded hover:bg-blue-600">Grades</a>
+          <a href="#" data-page="settings" class="block py-2 px-3 rounded hover:bg-blue-600">Settings</a>
+        </nav>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="flex-1 p-6">
+      <!-- Top bar -->
+      <div class="flex items-center justify-between mb-6">
+        <div class="flex items-center gap-4">
+          <button id="toggle-sidebar" class="md:hidden inline-flex items-center p-2 border rounded bg-white">Menu</button>
+          <input id="search" type="search" placeholder="Search courses..." class="w-80 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-200" />
+        </div>
+        <div class="flex items-center gap-4">
+          <div id="user-name" class="text-sm font-medium"></div>
+          <button id="logout" class="px-3 py-2 bg-red-50 text-red-700 rounded">Logout</button>
+        </div>
+      </div>
+
+      <!-- Pages container -->
+      <div id="page-container" class="space-y-6">
+        <!-- Dashboard page -->
+        <section id="page-dashboard" class="bg-white p-6 rounded-2xl shadow-sm">
+          <h3 class="text-lg font-semibold text-gray-700">Welcome back, <span id="welcome-name"></span></h3>
+          <div class="mt-4 grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="rounded-xl p-4 bg-white border shadow-sm">
+              <div class="text-sm text-gray-500">Registered Courses</div>
+              <div id="stat-registered" class="text-2xl font-bold text-gray-800">0</div>
+            </div>
+            <div class="rounded-xl p-4 bg-white border shadow-sm">
+              <div class="text-sm text-gray-500">Total Credits</div>
+              <div id="stat-credits" class="text-2xl font-bold text-gray-800">0</div>
+            </div>
+            <div class="rounded-xl p-4 bg-white border shadow-sm">
+              <div class="text-sm text-gray-500">Enrollment Progress</div>
+              <div id="stat-progress" class="text-2xl font-bold text-gray-800">0%</div>
+            </div>
+            <div class="rounded-xl p-4 bg-white border shadow-sm">
+              <div class="text-sm text-gray-500">Upcoming Classes</div>
+              <div id="stat-upcoming" class="text-2xl font-bold text-gray-800">—</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Courses page -->
+        <section id="page-courses" class="bg-white p-6 rounded-2xl shadow-sm hidden">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-semibold text-gray-700">Available Courses</h3>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+              <thead>
+                <tr class="text-left text-sm text-gray-500">
+                  <th class="px-4 py-2">Course Code</th>
+                  <th class="px-4 py-2">Title</th>
+                  <th class="px-4 py-2">Instructor</th>
+                  <th class="px-4 py-2">Schedule</th>
+                  <th class="px-4 py-2">Credits</th>
+                  <th class="px-4 py-2">Availability</th>
+                  <th class="px-4 py-2">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="courses-table" class="bg-white divide-y divide-gray-100">
+                <!-- rows inserted here -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- My Courses page -->
+        <section id="page-mycourses" class="bg-white p-6 rounded-2xl shadow-sm hidden">
+          <h3 class="text-lg font-semibold text-gray-700 mb-4">My Registered Courses</h3>
+          <div id="my-courses-list" class="space-y-3">
+            <!-- personal courses -->
+          </div>
+        </section>
+
+        <!-- Placeholder pages -->
+        <section id="page-schedule" class="bg-white p-6 rounded-2xl shadow-sm hidden">
+          <h3 class="text-lg font-semibold text-gray-700">Schedule</h3>
+          <p class="mt-3 text-sm text-gray-600">Weekly schedule will appear here.</p>
+        </section>
+
+        <section id="page-grades" class="bg-white p-6 rounded-2xl shadow-sm hidden">
+          <h3 class="text-lg font-semibold text-gray-700">Grades</h3>
+          <p class="mt-3 text-sm text-gray-600">Grades will appear here.</p>
+        </section>
+
+        <section id="page-settings" class="bg-white p-6 rounded-2xl shadow-sm hidden">
+          <h3 class="text-lg font-semibold text-gray-700">Settings</h3>
+          <p class="mt-3 text-sm text-gray-600">Account settings and preferences.</p>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script src="/js/app.js"></script>
+  <script>
+    // Basic page routing and UI glue handled in app.js; small page-specific hooks here
+    (async function init() {
+      await APP.ensureLoggedIn();
+      APP.showPage('dashboard');
+      document.getElementById('toggle-sidebar').addEventListener('click', () => {
+        const aside = document.querySelector('aside');
+        if (aside) aside.classList.toggle('hidden');
+      });
+
+      // search
+      const search = document.getElementById('search');
+      let searchTimeout = null;
+      search.addEventListener('input', () => {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+          const q = search.value.trim();
+          if (q.length === 0) {
+            APP.loadCourses();
+            return;
+          }
+          APP.loadCourses(q);
+          APP.showPage('courses');
+        }, 300);
+      });
+
+      // sidebar links
+      document.querySelectorAll('[data-page]').forEach(a => {
+        a.addEventListener('click', (e) => {
+          e.preventDefault();
+          const page = a.getAttribute('data-page');
+          APP.showPage(page);
+          if (page === 'courses') APP.loadCourses();
+          if (page === 'mycourses') APP.loadMyCourses();
+        });
+      });
+
+      document.getElementById('logout').addEventListener('click', async () => {
+        await fetch('/api/logout', { method: 'POST' });
+        location.href = '/';
+      });
+
+      // initial data
+      APP.updateStats();
+      APP.loadCourses();
+    })();
+  </script>
+</body>
+</html>

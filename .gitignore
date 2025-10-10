@@ -1,0 +1,16 @@
+# Node
+node_modules/
+
+# Environment
+.env
+
+# Logs
+npm-debug.log*
+
+# IDE
+.vscode/
+.DS_Store
+
+# Ignore user data files (do not commit real user data)
+data/user.json
+data/users.json

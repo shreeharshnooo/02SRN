@@ -1,0 +1,6 @@
+[
+  { "code": "CSE101", "title": "Intro to Computer Science", "instructor": "Dr. Priya Rao", "schedule": "Mon & Wed 10:00-11:30", "credits": 3, "availability": 20 },
+  { "code": "MTH201", "title": "Calculus II", "instructor": "Prof. R. Menon", "schedule": "Tue & Thu 09:00-10:30", "credits": 4, "availability": 15 },
+  { "code": "PHY150", "title": "Physics for Engineers", "instructor": "Dr. G. Sharma", "schedule": "Mon & Wed 14:00-15:30", "credits": 3, "availability": 10 },
+  { "code": "ENG210", "title": "Technical Communication", "instructor": "Ms. S. Iyer", "schedule": "Fri 10:00-13:00", "credits": 2, "availability": 25 }
+]
