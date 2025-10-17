@@ -30,9 +30,9 @@ app.use(session({
 
 // Serve static files from /public
 app.use(express.static(path.join(__dirname, 'public')));
-
 // ------------------ MongoDB Connection ------------------
-mongoose.connect('mongodb://localhost:27017/student_portal', {
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://akash_k080:8660543860@cluster0.wzdeyrm.mongodb.net/student_portal?retryWrites=true&w=majority';
+mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
