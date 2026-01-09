@@ -31,7 +31,7 @@ app.use(session({
 // Serve static files from /public
 app.use(express.static(path.join(__dirname, 'public')));
 // ------------------ MongoDB Connection ------------------
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://akash_k080:8660543860@cluster0.wzdeyrm.mongodb.net/student_portal?retryWrites=true&w=majority';
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://shree8123surekar660859_db_user:qwerty123@02srn.1b5d33q.mongodb.net/student_portal?retryWrites=true&w=majority&appName=02srn';
 mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
